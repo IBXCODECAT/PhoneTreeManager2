@@ -4,7 +4,8 @@
     <string name="title_create_call">Incoming Call</string>
     <string name="title_notifications">Urgent Calls</string>
 
-    <string name="hold_on">Hold On…</string>
+
+    <string name="submit">Submit</string>
 
     <string name="str_status_park_call">Park</string>
     <string name="str_status_transfer_call">Transfer</string>
