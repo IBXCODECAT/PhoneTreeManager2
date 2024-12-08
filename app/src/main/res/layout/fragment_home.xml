@@ -5,19 +5,57 @@
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     >
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/container_view"
+        android:id="@+id/call_info_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.phonetreemanager.CallInfoFragment"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/layout_call_buttons"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
         android:visibility="gone"
-        />
+        >
+
+        <Button
+            android:id="@+id/btn_park_call"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/btn_margin"
+            android:textColor="@color/design_default_color_primary"
+            android:text="@string/str_status_park_call" />
+
+        <Button
+            android:id="@+id/btn_transfer_call"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/btn_margin"
+            android:textColor="@color/design_default_color_primary"
+            android:text="@string/str_status_transfer_call" />
+
+        <Button
+            android:id="@+id/btn_end_call"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/btn_margin"
+            android:textColor="@color/design_default_color_primary"
+            android:text="@string/str_status_end_call"/>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lst_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
+
+
 </LinearLayout>

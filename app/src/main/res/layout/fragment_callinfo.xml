@@ -57,37 +57,4 @@
         android:ellipsize="none"
         android:hint="@string/call_info_hint" />
 
-
-    <LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        >
-
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/btn_margin"
-            android:textColor="@color/design_default_color_primary"
-            android:text="@string/str_status_park_call" />
-
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/btn_margin"
-            android:textColor="@color/design_default_color_primary"
-            android:text="@string/str_status_transfer_call" />
-
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/btn_margin"
-            android:textColor="@color/design_default_color_primary"
-            android:text="@string/str_status_end_call"/>
-    </LinearLayout>
 </LinearLayout>

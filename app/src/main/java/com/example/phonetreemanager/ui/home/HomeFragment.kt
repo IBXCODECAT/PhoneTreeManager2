@@ -1,20 +1,15 @@
 package com.example.phonetreemanager.ui.home
 
 import android.R
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
-import com.example.phonetreemanager.CallInfoFragment
+import com.example.phonetreemanager.ui.call_info.CallInfoFragment
 import com.example.phonetreemanager.databinding.FragmentHomeBinding
 
 
@@ -27,6 +22,8 @@ class HomeFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    var fragmentShowing = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,9 +34,6 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
-        val fragment = binding.containerView
 
         val listView: ListView = binding.lstHome
 
@@ -52,10 +46,66 @@ class HomeFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_list_item_1, list)
         listView.adapter = adapter
 
+        val buttons = binding.layoutCallButtons
+
+        val parkButton = binding.btnParkCall
+        val transferButton = binding.btnTransferCall
+        val endButton = binding.btnEndCall
+
+        val callInfoFragment = CallInfoFragment()
+
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(binding.callInfoFragment.id, callInfoFragment)
+        transaction.addToBackStack(null)
+        transaction.hide(callInfoFragment)
+        transaction.commit()
+
+        endButton.setOnClickListener(View.OnClickListener {
+            val hideTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            hideTransaction.hide(callInfoFragment)
+            hideTransaction.commit()
+
+            buttons.visibility = View.GONE
+            listView.visibility = View.VISIBLE
+            fragmentShowing = false
+        })
+
+        parkButton.setOnClickListener(View.OnClickListener {
+            val hideTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            hideTransaction.hide(callInfoFragment)
+            hideTransaction.commit()
+
+            buttons.visibility = View.GONE
+            listView.visibility = View.VISIBLE
+            fragmentShowing = false
+        })
+
+        transferButton.setOnClickListener(View.OnClickListener {
+            val hideTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            hideTransaction.hide(callInfoFragment)
+            hideTransaction.commit()
+
+            buttons.visibility = View.GONE
+            listView.visibility = View.VISIBLE
+            fragmentShowing = false
+        })
+
         listView.setOnItemClickListener { parent, view, position, id ->
-            // Set fragment visible
-            fragment.visibility = View.VISIBLE
+
+            if(!fragmentShowing) {
+
+                val showTransaction= requireActivity().supportFragmentManager.beginTransaction()
+                showTransaction.show(callInfoFragment)
+                showTransaction.commit()
+
+                buttons.visibility = View.VISIBLE
+                listView.visibility = View.GONE
+            }
+
+            fragmentShowing = true
         }
+
+
 
         return root
     }
