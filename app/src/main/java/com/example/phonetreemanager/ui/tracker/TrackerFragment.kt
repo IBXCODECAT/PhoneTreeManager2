@@ -1,4 +1,4 @@
-package com.example.phonetreemanager.ui.home
+package com.example.phonetreemanager.ui.tracker
 
 import android.R
 import android.os.Bundle
@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.phonetreemanager.CallManager
-import com.example.phonetreemanager.CallState
+import com.example.phonetreemanager.systems.CallManager
+import com.example.phonetreemanager.data.CallState
+import com.example.phonetreemanager.databinding.FragmentTrackerBinding
 import com.example.phonetreemanager.ui.call_info.CallInfoFragment
-import com.example.phonetreemanager.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class TrackerFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentTrackerBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -31,16 +31,19 @@ class HomeFragment : Fragment() {
 
         var selectedCall = -1
 
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentTrackerBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val listView: ListView = binding.lstHome
+        val listView: ListView = binding.lstCalls
 
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_list_item_1, CallManager.getCallNames())
         listView.adapter = adapter
+
+        if(CallManager.getCallNames().isEmpty()) {
+            adapter.add("There are currently no calls in the tracker.")
+            adapter.add("Please select \"Incoming Call\" to get started!.")
+            adapter.notifyDataSetChanged()
+        }
 
         val buttons = binding.layoutCallButtons
         val callTitle = binding.txtCallTitle
@@ -49,19 +52,7 @@ class HomeFragment : Fragment() {
         val transferButton = binding.btnTransferCall
         val endButton = binding.btnEndCall
 
-        val callInfoFragment = CallInfoFragment()
-
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(binding.callInfoFragment.id, callInfoFragment)
-        transaction.addToBackStack(null)
-        transaction.hide(callInfoFragment)
-        transaction.commit()
-
         endButton.setOnClickListener(View.OnClickListener {
-            val hideTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            hideTransaction.hide(callInfoFragment)
-            hideTransaction.commit()
-
             // Remove the selected call from the list
             CallManager.removeCallAt(selectedCall)
 
@@ -76,10 +67,6 @@ class HomeFragment : Fragment() {
         })
 
         parkButton.setOnClickListener(View.OnClickListener {
-            val hideTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            hideTransaction.hide(callInfoFragment)
-            hideTransaction.commit()
-
             // Update the selected call to show it has been parked
             CallManager.setStateAt(selectedCall, CallState.PARKED)
 
@@ -94,13 +81,8 @@ class HomeFragment : Fragment() {
         })
 
         transferButton.setOnClickListener(View.OnClickListener {
-            val hideTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            hideTransaction.hide(callInfoFragment)
-            hideTransaction.commit()
-
             // Update the selected call to show it has been transferred
             CallManager.setStateAt(selectedCall, CallState.TRANSFERRED)
-
 
             // Refresh the list view
             adapter.clear()
@@ -112,19 +94,20 @@ class HomeFragment : Fragment() {
             listView.visibility = View.VISIBLE
         })
 
-        listView.setOnItemClickListener { parent, view, position, id ->
-            val showTransaction= requireActivity().supportFragmentManager.beginTransaction()
-            showTransaction.show(callInfoFragment)
-            showTransaction.commit()
+        listView.setOnItemClickListener { _, _, position, _ ->
+            try
+            {
+                selectedCall = position
+                callTitle.text = CallManager.getCallAt(selectedCall).toString()
 
-            selectedCall = position
-
-            buttons.visibility = View.VISIBLE
-
-            callTitle.text = CallManager.getCallAt(selectedCall).name
-
-            callTitle.visibility = View.VISIBLE
-            listView.visibility = View.GONE
+                buttons.visibility = View.VISIBLE
+                callTitle.visibility = View.VISIBLE
+                listView.visibility = View.GONE
+            }
+            catch (e: Exception)
+            {
+                Toast.makeText(this.context, e.message, Toast.LENGTH_LONG).show()
+            }
         }
 
         return root

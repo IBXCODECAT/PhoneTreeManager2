@@ -1,31 +1,22 @@
 <resources>
     <string name="app_name">PhoneTreeManager</string>
-    <string name="title_home">Tracking</string>
+    <string name="title_call_tracker">Call Tracker</string>
     <string name="title_create_call">Incoming Call</string>
-    <string name="title_notifications">Urgent Calls</string>
-
 
     <string name="hold_on">Hold on…</string>
     <string name="submit">Submit</string>
 
-
-    <string name="str_status_park_call">Park</string>
-    <string name="str_status_transfer_call">Transfer</string>
-    <string name="str_status_end_call">End</string>
+    <string name="str_status_park_call">Mark Parked</string>
+    <string name="str_status_transfer_call">Mark Transferred</string>
+    <string name="str_status_end_call">Delete Call</string>
 
     <string name="call_extension">Call Extension</string>
     <string name="call_info">Call Information</string>
 
-    <string name="call_time_hint">Enter call time:</string>
-
-    <string name="call_status_here">Call Status Placeholder</string>
-
-    <string name="call_init_time_placeholder">Created: ##:##:##</string>
-    <string name="call_inactive_time_placeholder">Hold Duration: 0m</string>
-    <string name="call_transfer_time_placeholder">Transferred: ##:##:##</string>
+    <string name="new_entry">Incoming Call Information</string>
 
     <array name="departments">
-        <item>Please Select…</item>
+        <item>Select Department…</item>
         <item>Bakery</item>
         <item>Bulk</item>
         <item>Dairy</item>

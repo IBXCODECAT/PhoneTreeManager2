@@ -1,4 +1,7 @@
-package com.example.phonetreemanager
+package com.example.phonetreemanager.systems
+
+import com.example.phonetreemanager.data.Call
+import com.example.phonetreemanager.data.CallState
 
 class CallManager {
     companion object {
@@ -19,9 +22,12 @@ class CallManager {
         fun getCallNames(): List<String> {
 
             // Create a custom string for each call in the list
-            return calls.map { call ->
-                "${call.name} - ${call.department} - ${call.state} ${call.extension?.let { "(${it})" } ?: ""}"
+            val map = calls.map { call ->
+                "${call.time} - ${call.department} - ${call.state} ${call.extension?.let { "(${it})" } ?: ""}\n${call.description}"
             }
+
+            map.sortedDescending()
+            return map
         }
 
         fun setStateAt(index: Int, state: CallState) {

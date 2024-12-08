@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/call_status_here"
+        android:text="@string/new_entry"
         android:textSize="30sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/text_margin"
@@ -18,52 +18,24 @@
         android:textAlignment="center"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/call_init_time_placeholder"
-            android:textColor="@color/design_default_color_error"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/call_inactive_time_placeholder"
-            android:textColor="@color/design_default_color_error"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/call_transfer_time_placeholder"
-            android:textColor="@color/design_default_color_error"/>
-
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/edt_call_extension"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="@string/call_extension"/>
-
     <Spinner
         android:id="@+id/spn_call_department"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/departments"
-        />
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/edt_call_extension"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/call_extension"
+        android:inputType="number"
+        android:minHeight="48dp" />
 
 
     <EditText
+        android:id="@+id/edt_call_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences|textMultiLine"

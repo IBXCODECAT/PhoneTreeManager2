@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_call_tracker">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.phonetreemanager.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_call_tracker"
+        android:name="com.example.phonetreemanager.ui.tracker.TrackerFragment"
+        android:label="@string/title_call_tracker"
+        tools:layout="@layout/fragment_tracker" />
 
     <fragment
         android:id="@+id/navigation_create_call"
@@ -18,9 +18,4 @@
         tools:layout="@layout/fragment_callinfo"
         />
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.phonetreemanager.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
 </navigation>
