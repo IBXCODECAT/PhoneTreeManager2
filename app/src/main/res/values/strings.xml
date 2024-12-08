@@ -5,7 +5,9 @@
     <string name="title_notifications">Urgent Calls</string>
 
 
+    <string name="hold_on">Hold on…</string>
     <string name="submit">Submit</string>
+
 
     <string name="str_status_park_call">Park</string>
     <string name="str_status_transfer_call">Transfer</string>

@@ -9,9 +9,10 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.phonetreemanager.CallManager
+import com.example.phonetreemanager.CallState
 import com.example.phonetreemanager.ui.call_info.CallInfoFragment
 import com.example.phonetreemanager.databinding.FragmentHomeBinding
-
 
 class HomeFragment : Fragment() {
 
@@ -22,13 +23,14 @@ class HomeFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    var fragmentShowing = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        var selectedCall = -1
+
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
@@ -37,16 +39,11 @@ class HomeFragment : Fragment() {
 
         val listView: ListView = binding.lstHome
 
-        // Add items to ListView
-        val list = mutableListOf<String>()
-        list.add("Home 1")
-        list.add("Home 2")
-        list.add("Home 3")
-
-        val adapter = ArrayAdapter(requireContext(), R.layout.simple_list_item_1, list)
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_list_item_1, CallManager.getCallNames())
         listView.adapter = adapter
 
         val buttons = binding.layoutCallButtons
+        val callTitle = binding.txtCallTitle
 
         val parkButton = binding.btnParkCall
         val transferButton = binding.btnTransferCall
@@ -65,9 +62,17 @@ class HomeFragment : Fragment() {
             hideTransaction.hide(callInfoFragment)
             hideTransaction.commit()
 
+            // Remove the selected call from the list
+            CallManager.removeCallAt(selectedCall)
+
+            // Refresh the list view
+            adapter.clear()
+            adapter.addAll(CallManager.getCallNames())
+            adapter.notifyDataSetChanged()
+
             buttons.visibility = View.GONE
+            callTitle.visibility = View.GONE
             listView.visibility = View.VISIBLE
-            fragmentShowing = false
         })
 
         parkButton.setOnClickListener(View.OnClickListener {
@@ -75,9 +80,17 @@ class HomeFragment : Fragment() {
             hideTransaction.hide(callInfoFragment)
             hideTransaction.commit()
 
+            // Update the selected call to show it has been parked
+            CallManager.setStateAt(selectedCall, CallState.PARKED)
+
+            // Refresh the list view
+            adapter.clear()
+            adapter.addAll(CallManager.getCallNames())
+            adapter.notifyDataSetChanged()
+            
             buttons.visibility = View.GONE
+            callTitle.visibility = View.GONE
             listView.visibility = View.VISIBLE
-            fragmentShowing = false
         })
 
         transferButton.setOnClickListener(View.OnClickListener {
@@ -85,27 +98,34 @@ class HomeFragment : Fragment() {
             hideTransaction.hide(callInfoFragment)
             hideTransaction.commit()
 
+            // Update the selected call to show it has been transferred
+            CallManager.setStateAt(selectedCall, CallState.TRANSFERRED)
+
+
+            // Refresh the list view
+            adapter.clear()
+            adapter.addAll(CallManager.getCallNames())
+            adapter.notifyDataSetChanged()
+
             buttons.visibility = View.GONE
+            callTitle.visibility = View.GONE
             listView.visibility = View.VISIBLE
-            fragmentShowing = false
         })
 
         listView.setOnItemClickListener { parent, view, position, id ->
+            val showTransaction= requireActivity().supportFragmentManager.beginTransaction()
+            showTransaction.show(callInfoFragment)
+            showTransaction.commit()
 
-            if(!fragmentShowing) {
+            selectedCall = position
 
-                val showTransaction= requireActivity().supportFragmentManager.beginTransaction()
-                showTransaction.show(callInfoFragment)
-                showTransaction.commit()
+            buttons.visibility = View.VISIBLE
 
-                buttons.visibility = View.VISIBLE
-                listView.visibility = View.GONE
-            }
+            callTitle.text = CallManager.getCallAt(selectedCall).name
 
-            fragmentShowing = true
+            callTitle.visibility = View.VISIBLE
+            listView.visibility = View.GONE
         }
-
-
 
         return root
     }
