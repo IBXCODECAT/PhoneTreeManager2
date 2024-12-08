@@ -1,10 +1,12 @@
 package com.example.phonetreemanager.ui.home
 
 import android.R
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
@@ -37,6 +39,8 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
 
+        val fragment = binding.containerView
+
         val listView: ListView = binding.lstHome
 
         // Add items to ListView
@@ -45,22 +49,13 @@ class HomeFragment : Fragment() {
         list.add("Home 2")
         list.add("Home 3")
 
-        // Launch a new fragment
-        listView.setOnItemClickListener { parent, view, position, id ->
-            val fragmentManager = requireActivity().supportFragmentManager
-
-            fragmentManager.commit {
-                setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
-                replace<CallInfoFragment>(container?.id ?: 0) // Use the correct ID
-                setReorderingAllowed(true)
-                addToBackStack(null)
-            }
-        }
-
-
-
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_list_item_1, list)
         listView.adapter = adapter
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+            // Set fragment visible
+            fragment.visibility = View.VISIBLE
+        }
 
         return root
     }

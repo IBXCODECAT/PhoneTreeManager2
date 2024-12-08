@@ -13,6 +13,8 @@ class CallInfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         return inflater.inflate(R.layout.fragment_callinfo, container, false)
     }
 }

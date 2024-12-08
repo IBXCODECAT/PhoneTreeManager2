@@ -3,6 +3,26 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="hold_on">Hold On…</string>
+
+    <string name="str_status_park_call">Park</string>
+    <string name="str_status_transfer_call">Transfer</string>
+    <string name="str_status_end_call">End</string>
+
+    <string name="call_extension">Call Extension</string>
+    <string name="call_info">Call Information</string>
+
+    <string name="call_time_hint">Enter call time:</string>
+
+    <string name="call_status_here">Call Status Placeholder</string>
+
+    <string name="call_init_time_placeholder">Created: ##:##:##</string>
+    <string name="call_inactive_time_placeholder">Hold Duration: 0m</string>
+    <string name="call_transfer_time_placeholder">Transferred: ##:##:##</string>
+
+    <string name="call_info_hint">Example: Caller asks for dry ice price stock and price</string>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
