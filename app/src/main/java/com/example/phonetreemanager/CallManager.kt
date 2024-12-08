@@ -17,7 +17,11 @@ class CallManager {
         }
 
         fun getCallNames(): List<String> {
-            return calls.map { it.name }
+
+            // Create a custom string for each call in the list
+            return calls.map { call ->
+                "${call.name} - ${call.department} - ${call.state} ${call.extension?.let { "(${it})" } ?: ""}"
+            }
         }
 
         fun setStateAt(index: Int, state: CallState) {

@@ -38,24 +38,31 @@ class CallInfoFragment : Fragment() {
 
         val btnSubmit: Button = binding.btnSubmit;
 
-        //Generate a random number
-        val random = Random(2)
-
         btnSubmit.setOnClickListener(View.OnClickListener {
             val manager: FragmentManager = requireActivity().supportFragmentManager
             manager.popBackStack()
 
+            val edtExtension = binding.edtCallExtension
 
-            val call = Call(
-                name = "${random.nextInt(0,100)}Temp",
-                state = CallState.CREATED,
-                extension = -1
-            )
+            val spnDepartment = binding.spnCallDepartment
 
-            CallManager.addCall(call)
+            if(spnDepartment.selectedItemPosition == 0) {
+                Toast.makeText(this.context, "Department is required", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                val call = Call(
+                    name = "${edtExtension.text}",
+                    state = CallState.CREATED,
+                    department = spnDepartment.selectedItem.toString(),
+                    extension = edtExtension.text.toString().toIntOrNull()
+                )
 
-            // Toast notification
-            Toast.makeText(this.context, "Phone Calls Updated!", Toast.LENGTH_SHORT).show()
+                CallManager.addCall(call)
+
+                // Toast notification
+                Toast.makeText(this.context, "Phone Calls Updated!", Toast.LENGTH_SHORT).show()
+            }
         })
 
         return root

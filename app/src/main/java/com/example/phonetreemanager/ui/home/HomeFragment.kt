@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
             adapter.clear()
             adapter.addAll(CallManager.getCallNames())
             adapter.notifyDataSetChanged()
-            
+
             buttons.visibility = View.GONE
             callTitle.visibility = View.GONE
             listView.visibility = View.VISIBLE

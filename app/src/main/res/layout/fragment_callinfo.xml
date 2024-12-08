@@ -49,6 +49,21 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/edt_call_extension"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/call_extension"/>
+
+    <Spinner
+        android:id="@+id/spn_call_department"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/departments"
+        />
+
+
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences|textMultiLine"
